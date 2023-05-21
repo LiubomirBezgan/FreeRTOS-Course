@@ -43,12 +43,12 @@ typedef uint32_t TaskProfiler;
 UART_HandleTypeDef huart1;
 
 /* Definitions for defaultTask */
-//osThreadId_t defaultTaskHandle;
-//const osThreadAttr_t defaultTask_attributes = {
-//  .name = "defaultTask",
-//  .stack_size = 128 * 4,
-//  .priority = (osPriority_t) osPriorityNormal,
-//};
+osThreadId_t defaultTaskHandle;
+const osThreadAttr_t defaultTask_attributes = {
+  .name = "defaultTask",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
 /* USER CODE BEGIN PV */
 TaskProfiler BlueTaskProfiler;
 TaskProfiler RedTaskProfiler;
@@ -59,7 +59,7 @@ TaskProfiler GreenTaskProfiler;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
-//void StartDefaultTask(void *argument);
+void StartDefaultTask(void *argument);
 
 /* USER CODE BEGIN PFP */
 void vBlueLedControllerTask(void *pvParameters);
@@ -107,14 +107,14 @@ int main(void)
 		  	  "Blue Led Controller",
 			  100,
 			  NULL,
-			  1,
+			  3,
 			  NULL);
 
   xTaskCreate(vRedLedControllerTask,
 		  	  "Red Led Controller",
 			  100,
 			  NULL,
-			  1,
+			  2,
 			  NULL);
 
   xTaskCreate(vGreenLedControllerTask,
@@ -128,7 +128,7 @@ int main(void)
   /* USER CODE END 2 */
 
   /* Init scheduler */
-  //osKernelInitialize();
+  osKernelInitialize();
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
@@ -148,7 +148,7 @@ int main(void)
 
   /* Create the thread(s) */
   /* creation of defaultTask */
-  //defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
+  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -159,7 +159,7 @@ int main(void)
   /* USER CODE END RTOS_EVENTS */
 
   /* Start scheduler */
-  //osKernelStart();
+  osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
@@ -308,16 +308,16 @@ int __io_putchar(int ch)
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
-//void StartDefaultTask(void *argument)
-//{
-//  /* USER CODE BEGIN 5 */
+void StartDefaultTask(void *argument)
+{
+  /* USER CODE BEGIN 5 */
 //  /* Infinite loop */
 //  for(;;)
 //  {
 //    osDelay(1);
 //  }
-//  /* USER CODE END 5 */
-//}
+  /* USER CODE END 5 */
+}
 
 /**
   * @brief  Period elapsed callback in non blocking mode
