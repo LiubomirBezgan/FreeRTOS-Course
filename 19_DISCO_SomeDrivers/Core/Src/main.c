@@ -53,7 +53,8 @@
 //  .priority = (osPriority_t) osPriorityNormal,
 //};
 /* USER CODE BEGIN PV */
-
+uint8_t btn_state;
+uint32_t sensor_value;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -101,6 +102,9 @@ int main(void)
   MX_GPIO_Init();
   USART1_UART_Tx_Init();
   /* USER CODE BEGIN 2 */
+  gpio_init();
+  adc_init();
+
 
   /* USER CODE END 2 */
 
@@ -143,6 +147,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  btn_state = read_digital_sensor();
+	  sensor_value = read_analog_sensor();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

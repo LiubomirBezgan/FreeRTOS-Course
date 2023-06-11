@@ -11,5 +11,7 @@
 #include "stm32f4xx_hal.h"
 
 void pa0_interrupt_init(void);
+void gpio_init(void);
+uint8_t read_digital_sensor(void);
 
 #endif /* INC_EXTI_H_ */

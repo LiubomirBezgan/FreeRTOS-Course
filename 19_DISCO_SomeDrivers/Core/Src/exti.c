@@ -25,3 +25,21 @@ void pa0_interrupt_init(void)		// PA0
 
 	NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
+
+void gpio_init(void)
+{
+	RCC->AHB1ENR |= 1;				// Enable GPIOA clock
+	GPIOA->MODER &= ~0x3;			// Configure PA0 for push button interrupt
+}
+
+uint8_t read_digital_sensor(void)
+{
+	if (GPIOA->IDR & 0x1)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}

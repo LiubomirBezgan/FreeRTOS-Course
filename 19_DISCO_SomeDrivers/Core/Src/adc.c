@@ -5,7 +5,7 @@
  *      Author: <SKG> POTOP
  */
 
-#include "../../../19_DISCO_SomeDrivers/Core/Inc/adc.h"
+#include "adc.h"
 
 void adc_init(void)
 {
@@ -23,6 +23,6 @@ uint32_t read_analog_sensor(void)
 {
 	ADC1->CR2 |= (1U<<30);			// Start conversion
 
-	while((ADC1->SR & 2)){}			// Wait for conversion to complete
-	return ADC1->DR;				// Return the resultat
+	while(!(ADC1->SR & 2)){}		// Wait for conversion to complete
+	return ADC1->DR;				// Return the result
 }
